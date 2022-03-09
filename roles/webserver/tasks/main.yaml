@@ -1,0 +1,17 @@
+- name: Install apache webserver
+  yum:
+    name: httpd
+    state: present
+- name: create index.html file on default doc root of apache
+  copy:
+    src: index.html.j2
+    dest: /var/www/html/index.html
+    owner: root
+    group: root
+    mode: 0644
+  notify: Restart webserver
+- name: start and enable httpd service
+  service: 
+    name: httpd
+    state: started
+    enabled: yes 
